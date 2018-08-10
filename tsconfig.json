@@ -1,0 +1,26 @@
+{
+    "compilerOptions" : {
+        "emitDecoratorMetadata" : true,
+        "experimentalDecorators" : true,
+        "module" : "commonjs",
+        "noImplicitAny" : false,
+        "noUnusedParameters" : true,
+        "removeComments" : true,
+        "preserveConstEnums" : true,
+        "sourceMap" : true,
+        "allowJs" : false,
+        "types" :[
+            "node",
+            "mocha"
+        ],
+        "typeRoots" : [
+            "node_modules/@types"
+        ],
+        "target" :"es2015",
+        "outDir" : "./out"
+    },
+    "exclude" : [
+        "node_modules",
+    ],
+    "compileOnSave" : true
+}

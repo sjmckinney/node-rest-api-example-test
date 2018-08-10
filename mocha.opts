@@ -1,0 +1,3 @@
+--reporter mocha-multi-reporters 
+--reporter-options configFile=mocha-reports.json
+--timeout 10000

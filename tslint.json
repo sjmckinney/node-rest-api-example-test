@@ -1,0 +1,80 @@
+{
+    "rules": {
+        "no-var-keyword": true,
+        "no-unused-variable": [
+            true,
+            {
+                "ignore-pattern": "^_"
+            }
+        ],
+
+        "max-line-length": [true, 175],
+
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "never",
+                "singleline": "never"
+            }
+        ],
+        "class-name": true,
+        "comment-format": [
+            true,
+            "check-space"
+        ],
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "no-eval": true,
+        "no-internal-module": false,
+        "no-trailing-whitespace": false,
+
+        "one-line": [
+            true,
+            "check-open-brace",
+            "check-whitespace"
+        ],
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "semicolon": [
+            true,
+            "always"
+        ],
+        "triple-equals": [
+            false,
+            "allow-null-check"
+        ],
+        "typedef-whitespace": [
+            false,
+            {
+                "call-signature": "nospace",
+                "index-signature": "nospace",
+                "parameter": "nospace",
+                "property-declaration": "nospace",
+                "variable-declaration": "nospace"
+            }
+        ],
+        "variable-name": [
+            true,
+            "ban-keywords"
+        ],
+        "whitespace": [
+            false,
+            "check-branch",
+            "check-decl",
+            "check-operator",
+            "check-separator",
+            "check-type"
+        ]
+    },
+    "jsRules": {
+        "triple-equals": [
+            true,
+            "allow-null-check"
+        ]
+    },
+    "defaultSeverity": "warning"
+}
