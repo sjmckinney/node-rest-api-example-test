@@ -1,20 +1,19 @@
-* ## Users end point
+## Users end point
 
 +ve
 
-* Create 1..n users
-* Create new line
-* Retrieve 1..n users
-* Delete 1..n users
+* DONE - Create 1..n users
+* DONE - Retrieve 1..n users
+* DONE - Delete 1..n users
 
 -ve
 
-* Cannot create duplicate user
-* Cannot create user with invalid email
+* DONE - Cannot create duplicate user
+* DONE - Cannot create user with invalid email
+* DONE - Cannot see password in get users
 * Cannot create user without email password values
-* Cannot see password in get users
-* Cannot use product or order end point without JWT
-* Cannot use product or order end point with invalid JWT
+* Cannot use product or order end points without JWT
+* Cannot use product or order end points with invalid JWT
 
 ## General cases
 
@@ -56,4 +55,3 @@
 ## Authentication
 
 ## Options
-
