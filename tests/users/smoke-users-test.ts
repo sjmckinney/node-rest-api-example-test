@@ -194,8 +194,6 @@ tags("smoke")
     let user: any;
 
     before(async function() {
-        
-        user = await users.getTest3User();
 
         response = await users.deleteUser(username2);
 
