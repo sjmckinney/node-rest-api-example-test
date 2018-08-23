@@ -4,7 +4,8 @@
   "description": "A project that will test the API endpoints in node-rest-example app",
   "main": "index1.js",
   "scripts": {
-    "all": "tsc -p ./&& mocha --tags 'not:wip' ./out/**/*test.js --opts ./mocha.opts",
+    "all-local": "tsc -p ./&&cross-env NODE_ENV=LOCAL mocha --tags 'not:wip' ./out/**/*test.js --opts ./mocha.opts",
+    "all-remote": "tsc -p ./&&cross-env NODE_ENV=REMOTE mocha --tags 'not:wip' ./out/**/*test.js --opts ./mocha.opts",
     "tsc": "tsc -p ./",
     "pretsc": "node cleanOut.js"
   },
@@ -25,6 +26,7 @@
     "typescript": "^3.0.1"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "dotenv": "^6.0.0"
   }
 }

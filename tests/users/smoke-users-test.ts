@@ -4,6 +4,7 @@ const expect = chakram.expect;
 const tags = require("mocha-tags");
 import { StatusCodes } from "../../helpers/statusCodes";
 import { Users } from "../../helpers/userHelpers";
+import { SystemMessages } from "../../helpers/systemMessages";
 
 const users: Users = new Users();
 const username1: String = "test2@test.com";
@@ -13,7 +14,6 @@ const password2: String = "myPassword3";
 const invalidUsername: String = "test2test.com";
 const JWS_REGEX = /^[a-zA-Z0-9\-_]+?\.[a-zA-Z0-9\-_]+?\.([a-zA-Z0-9\-_]+)?$/;
 const MONGODB_ID_REGEX = /^[a-f\d]{24}$/i;
-let currentUsername1JWT: String;
 
 tags("smoke")
 .describe("Users smoke test - should be able to sign up new user", function() {
@@ -43,7 +43,6 @@ tags("smoke")
     before(async function() {
 
         response = await users.loginAsUser(username1, password1);
-        currentUsername1JWT = response.body.token;
 
     });
 
@@ -52,7 +51,7 @@ tags("smoke")
     });
 
     it("Response should contain message 'User authentication succeeded'", () => {
-        return expect(response.body.message).to.contain("User authentication succeeded");
+        return expect(response.body.message).to.contain(SystemMessages.AuthSucceeded);
     });
 
     it("Response should contain a JWT token property", () => {
@@ -65,7 +64,7 @@ tags("smoke")
 });
 
 tags("smoke")
-.describe("Users smoke test - should not be able to log in if username or password incorrect", function() {
+.describe("Users smoke test - should not be able to log in if username incorrect", function() {
 
     let response: any;
 
@@ -75,12 +74,37 @@ tags("smoke")
 
     });
 
-    it(`Logging into system as user ${username1} should return status code of 200`, () => {
+    it(`Logging into system as user ${invalidUsername} should return status code of 401`, () => {
         return expect(response).to.have.status(StatusCodes.Unauthorized);
     });
 
-    it("Response should contain message 'User authenication failed'", () => {
-        return expect(response.body.message).to.contain("User authenication failed");
+    it("Response should contain message 'User authentication failed'", () => {
+        return expect(response.body.message).to.contain(SystemMessages.AuthFailed);
+    });
+
+    it("Response should NOT contain a JWT token property", () => {
+        return expect(response.body.token).to.equal(undefined);
+    });
+});
+
+tags("smoke")
+.describe("Users smoke test - should not be able to log in if password incorrect", function() {
+
+    let response: any;
+    const badPwd: String = "IamClearlyWrong";
+
+    before(async function() {
+
+        response = await users.loginAsUser(username1, badPwd);
+
+    });
+
+    it(`Logging into system as user with incorrect password should return status code of 401`, () => {
+        return expect(response).to.have.status(StatusCodes.Unauthorized);
+    });
+
+    it("Response should contain message 'User authentication failed'", () => {
+        return expect(response.body.message).to.contain(SystemMessages.AuthFailed);
     });
 
     it("Response should NOT contain a JWT token property", () => {
@@ -103,7 +127,7 @@ tags("smoke")
     });
 
     it("Returned message should contain duplicate user error message", () => {
-        return expect(response.body.message).to.contain(`User ${username1} already exists in the system.`);
+        return expect(response.body.message).to.contain(SystemMessages.UserTest2Exists);
     });
 });
 
@@ -122,7 +146,7 @@ tags("smoke")
     });
 
     it("Response should contain invalid email message when invalid value used", () => {
-        return expect(response.body.error).to.contain(`User validation failed: email: Path \`email\` is invalid (${invalidUsername}).`);
+        return expect(response.body.error).to.contain(SystemMessages.InvalidUsername);
     });
 });
 
@@ -168,17 +192,17 @@ tags("smoke")
 
     let response: any;
     let user: any;
-    let options: any;
 
     before(async function() {
         
-        user = await users.getTest3UserId();
+        user = await users.getTest3User();
 
-        response = await users.deleteUser(user.id);
+        response = await users.deleteUser(username2);
+
     });
 
     it("Response should contain correct message", () => {
-        return expect(response.body.message).to.equal(`User ${user.id} deleted from system`);
+        return expect(response.body.message).to.equal(SystemMessages.UserTest3Deleted);
     });
 
     it("Having deleted a record the response should contain exactly one record", async () => {

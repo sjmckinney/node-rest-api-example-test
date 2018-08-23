@@ -42,6 +42,7 @@
             ],
             "internalConsoleOptions" : "openOnSessionStart",
             "env" :{
+                "NODE_ENV": "LOCAL"
             },
             "sourceMaps" : true,
             "outFiles" : [ "${workspaceRoot}/out/**/*.js" ],

@@ -38,7 +38,7 @@ class UserHelpers {
     
     }
 
-    getTest3UserId = async () => {
+    getTest3User = async () => {
 
         const userSchema = new mongoose.Schema({
             _id: mongoose.Schema.Types.ObjectId,
@@ -48,10 +48,8 @@ class UserHelpers {
 
         const User = mongoose.model("User", userSchema);
 
-        return User.findOne({email: "test3@test.com"},function (err, user) {
-            if(! err) {
-                return user.id;
-            } else {
+        return User.findOne({email: "test3@test.com"}, function (err) {
+            if(err) {
                 console.log(err.message);
             }
         });
@@ -74,10 +72,10 @@ class UserHelpers {
 
     }
 
-    deleteUser = async (userId: String) => {
+    deleteUser = async (userEmail: String) => {
         
         let options = await this.getAuthHeader();
-        return chakram.delete(`${usersEndpoint}/${userId}`, {}, options);
+        return chakram.delete(`${usersEndpoint}/${userEmail}`, {}, options);
 
     }
 
